@@ -23,19 +23,39 @@ function App() {
     return result;
   }
 
+  function handleReset() {
+    setStep(1);
+    setCount(0);
+  }
+
   return (
     <div className="App">
       <div className="step">
-        <button onClick={() => setStep((step) => step - 1)}>-</button>
-        <p>Step: {step}</p>
-        <button onClick={() => setStep((step) => step + 1)}>+</button>
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={step}
+          onChange={(e) => setStep(Number(e.target.value))}
+        />
+        {step}
       </div>
       <div className="count">
         <button onClick={() => setCount((count) => count - step)}>-</button>
-        <p>Count: {count}</p>
+        <input
+          type="text"
+          value={count}
+          onChange={(e) => setCount(Number(e.target.value))}
+        />
         <button onClick={() => setCount((count) => count + step)}>+</button>
       </div>
       <p className="date">{`${text()} ${date}`}</p>
+      {(count !== 0 || step !== 1) && (
+        <div>
+          <br />
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      )}
     </div>
   );
 }
